@@ -5,6 +5,7 @@ import { AuthContext } from "../../contexts/authContexts/AuthContexts";
 
 const Navbar = () => {
   const { user, logOut, loading } = use(AuthContext);
+  
   const links = (
     <>
       <div className="navbar-link space-x-6 text-xl flex flex-col lg:flex-row">
@@ -25,7 +26,7 @@ const Navbar = () => {
       <span className="loading loading-bars loading-lg text-[#2575FC]"></span>
     </div>
   ) : (
-    <div className="bg-base-200 shadow-sm">
+    <div className="bg-blue-100 shadow-sm">
       <div className="navbar  w-11/12 mx-auto">
         <div className="navbar-start">
           <div className="dropdown">
@@ -73,12 +74,13 @@ const Navbar = () => {
 
         <div className="navbar-end">
           {user ? (
-            <div className="navbar-end">
+            <div className="flex justify-center items-center">
               {user.photoURL ? (
                 <div
                   className="tooltip tooltip-bottom"
                   data-tip={user.displayName}
                 >
+                  
                   <img
                     src={user.photoURL}
                     alt=""
