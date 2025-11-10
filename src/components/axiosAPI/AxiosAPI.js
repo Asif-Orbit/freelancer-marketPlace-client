@@ -4,10 +4,8 @@ const AxiosAPI = axios.create({
   baseURL: import.meta.env.VITE_API_BASE || "",
   timeout: 15000,
   headers: { "Content-Type": "application/json" },
-  // withCredentials: true, // <- enable if you use http-only cookies
 });
 
-// Optional: response error handler => throw concise error
 AxiosAPI.interceptors.response.use(
   (res) => res,
   (err) => {
