@@ -1,25 +1,34 @@
-import React from 'react';
-import { Link } from 'react-router';
+import React from "react";
+import { Link } from "react-router";
 
-const JobCard=({ job })=> {
+const JobCard = ({ job }) => {
   const {
     _id,
     title,
     category,
     summary,
     coverImage,
+    postedAt,
   } = job;
 
   const fallbackImg = "https://i.ibb.co/cKHhDvdB/image.png";
 
+  // Format posted date/time
+  const formattedDate = postedAt
+    ? new Date(postedAt).toLocaleString("en-GB", {
+        dateStyle: "medium",
+        timeStyle: "short",
+      })
+    : "Date not available";
+
   return (
     <div className="card bg-base-200 hover:bg-base-300 transition-all shadow-md hover:shadow-xl border border-base-300">
       {/* Cover Image */}
-      <figure className=" w-full bg-base-300 overflow-hidden rounded-t-xl">
+      <figure className="w-full bg-base-300 overflow-hidden rounded-t-xl p-5">
         <img
           src={coverImage || fallbackImg}
           alt={title}
-          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+          className="w-full h-72 object-cover rounded-xl transition-transform duration-300 hover:scale-105"
           onError={(e) => (e.currentTarget.src = fallbackImg)}
           loading="lazy"
         />
@@ -38,12 +47,15 @@ const JobCard=({ job })=> {
 
         <p className="text-sm text-base-content/80 line-clamp-3">{summary}</p>
 
-
+        
 
         <div className="card-actions justify-end mt-3">
+            <p>
+            <span className="font-medium text-xl text-black">Posted on:</span> <span className="text-black text-xl">{formattedDate}</span>
+          </p>
           <Link
             to={`/allJobs/${_id}`}
-            className="btn btn-sm btn-primary w-full sm:w-auto"
+            className="btn btn-sm btn-primary w-full lg:w-auto hover:bg-black"
           >
             View Details
           </Link>
@@ -51,6 +63,6 @@ const JobCard=({ job })=> {
       </div>
     </div>
   );
-}
+};
 
 export default JobCard;

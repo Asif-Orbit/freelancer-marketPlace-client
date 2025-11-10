@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import AxiosAPI from "../axiosAPI/AxiosAPI";
 import JobCard from "../jobCard/JobCard";
 import NoJobFound from "../../pages/error/NoJobFound";
@@ -7,7 +7,7 @@ const AllJobs = () => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [search, setSearch] = useState("");
+  const [sortOrder, setSortOrder] = useState("newest"); // "newest" | "oldest"
 
   useEffect(() => {
     (async () => {
@@ -24,10 +24,16 @@ const AllJobs = () => {
     })();
   }, []);
 
-  // Filter by title
-  const filtered = jobs.filter((job) =>
-    job.title?.toLowerCase().includes(search.toLowerCase())
-  );
+  // Sort by postedAt
+  const sorted = useMemo(() => {
+    const copy = [...jobs];
+    copy.sort((a, b) => {
+      const da = a?.postedAt ? new Date(a.postedAt) : 0;
+      const db = b?.postedAt ? new Date(b.postedAt) : 0;
+      return sortOrder === "newest" ? db - da : da - db;
+    });
+    return copy;
+  }, [jobs, sortOrder]);
 
   if (loading) {
     return (
@@ -45,49 +51,34 @@ const AllJobs = () => {
 
   return (
     <div className="bg-base-200">
-        <div className="w-11/12 mx-auto px-4 md:px-8 py-8">
-      {/* Header + Search */}
-      <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-        <h1 className="text-3xl font-bold text-center md:text-left">
-          All Freelance Jobs <span>({filtered.length})</span>
-        </h1>
+      <div className="w-11/12 mx-auto px-4 md:px-8 py-8">
+        {/* Header + Sort */}
+        <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+          <h1 className="text-3xl font-bold text-center md:text-left">
+            All Freelance Jobs <span>({sorted.length})</span>
+          </h1>
 
-        <label className="input input-bordered flex items-center gap-2 w-full md:w-96">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-5 h-5 opacity-70"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
+          <select
+            className="select select-bordered w-full md:w-60"
+            value={sortOrder}
+            onChange={(e) => setSortOrder(e.target.value)}
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="m21 21-4.35-4.35M10 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z"
-            />
-          </svg>
-          <input
-            type="text"
-            className="grow"
-            placeholder="Search job title..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </label>
-      </div>
+            <option value="newest">Sort by: Newest</option>
+            <option value="oldest">Sort by: Oldest</option>
+          </select>
+        </div>
 
-      {/* Card Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filtered.length === 0 ? (
+        {/* Card Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {sorted.length === 0 ? (
             <div className="col-span-full">
-                <NoJobFound></NoJobFound>
+              <NoJobFound />
             </div>
-        ): (
-          filtered.map((job) => <JobCard key={job._id} job={job} />)
-        )}
+          ) : (
+            sorted.map((job) => <JobCard key={job._id} job={job} />)
+          )}
+        </div>
       </div>
-    </div>
     </div>
   );
 };
