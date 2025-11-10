@@ -4,7 +4,7 @@ import logo from "../../assets/logo.png";
 import { AuthContext } from "../../contexts/authContexts/AuthContexts";
 
 const Navbar = () => {
-  const { user } = use(AuthContext);
+  const { user, logOut, loading } = use(AuthContext);
   const links = (
     <>
       <div className="navbar-link space-x-6 text-xl flex flex-col lg:flex-row">
@@ -20,7 +20,11 @@ const Navbar = () => {
       </div>
     </>
   );
-  return (
+  return loading ? (
+    <div className=" flex justify-center items-center fixed inset-0 bg-black bg-opacity-30 z-50">
+      <span className="loading loading-bars loading-lg text-[#2575FC]"></span>
+    </div>
+  ) : (
     <div className="bg-base-200 shadow-sm">
       <div className="navbar  w-11/12 mx-auto">
         <div className="navbar-start">
@@ -68,19 +72,54 @@ const Navbar = () => {
         </div>
 
         <div className="navbar-end">
-          <Link
-            to="/login"
-            className="text-xl border-2 border-[#9F62F2] px-3 py-1 rounded-sm font-medium bg-linear-to-r from-[#6A11CB] to-[#2575FC] bg-clip-text text-transparent"
-          >
-            Login
-          </Link>
+          {user ? (
+            <div className="navbar-end">
+              {user.photoURL ? (
+                <div
+                  className="tooltip tooltip-bottom"
+                  data-tip={user.displayName}
+                >
+                  <img
+                    src={user.photoURL}
+                    alt=""
+                    className="w-12 h-12 bg-white  p-0.5 rounded-full mr-2 "
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src =
+                        "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+                    }}
+                  />
+                </div>
+              ) : (
+                <span>
+                  <FaUserLarge className="bg-white text-5xl p-1 rounded-full mr-2" />
+                </span>
+              )}
 
-          <Link
-            to="/register"
-            className="btn  border-none bg-linear-to-r from-[#6A11CB] to-[#2575FC] text-white ml-4 hover:text-black shadow-none md:flex hidden"
-          >
-            Register
-          </Link>
+              <button
+                onClick={() => logOut()}
+                className="text-xl border-2 border-[#9F62F2] px-3 py-1 rounded-sm font-medium bg-linear-to-r from-[#6A11CB] to-[#2575FC] bg-clip-text text-transparent"
+              >
+                Log Out
+              </button>
+            </div>
+          ) : (
+            <div className="navbar-end">
+              <Link
+                to="/login"
+                className="text-xl border-2 border-[#9F62F2] px-3 py-1 rounded-sm font-medium bg-linear-to-r from-[#6A11CB] to-[#2575FC] bg-clip-text text-transparent"
+              >
+                Login
+              </Link>
+
+              <Link
+                to="/register"
+                className="btn  border-none bg-linear-to-r from-[#6A11CB] to-[#2575FC] text-white ml-4 hover:text-black shadow-none md:flex hidden"
+              >
+                Register
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </div>

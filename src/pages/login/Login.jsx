@@ -1,4 +1,4 @@
-import React, { use, useRef, useState } from "react";
+import React, { use, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { toast, ToastContainer } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
@@ -38,6 +38,7 @@ const Login = () => {
           toast.error("❌ Incorrect password!");
         } else {
           toast.error(error.message);
+          
         }
       })
       .finally(() => setLoading(false));
@@ -47,7 +48,7 @@ const Login = () => {
       <title>Login Your Account</title>
       {loading && (
         <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center z-50">
-          <span className="loading loading-bars loading-lg text-pink-500"></span>
+          <span className="loading loading-bars loading-lg text-[#2575FC]"></span>
           <p className="text-white text-lg font-semibold">
             Login Please wait . . . .{" "}
           </p>

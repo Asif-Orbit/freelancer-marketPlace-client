@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-const AppsError = () => {
+const JobsError = () => {
     return (
          <div className="flex flex-col items-center justify-center min-h-screen bg-base-200 p-4">
       <title>Page Not found </title>
@@ -11,8 +11,8 @@ const AppsError = () => {
         <p className="text-gray-600 mb-6">
           The Job you are looking for does not exist or has been moved.
         </p>
-        <Link to="/games" className="btn btn-primary">
-          See All Games
+        <Link to="/allJobs" className="btn btn-primary">
+          See All Jobs
         </Link>
       </div>
     </div>
@@ -20,4 +20,4 @@ const AppsError = () => {
    
 };
 
-export default AppsError;
+export default JobsError;
