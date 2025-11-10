@@ -10,6 +10,7 @@ const CATEGORIES = [
   "Marketing",
   "Data & AI",
   "Mobile Apps",
+  "Others",
 ];
 
 const AddJob = () => {
@@ -19,7 +20,7 @@ const AddJob = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!user) {
-      toast.error("You must be logged in.");
+      toast.error("You must be logged in to post a job.");
       return;
     }
 
@@ -30,8 +31,19 @@ const AddJob = () => {
     const summary = form.summary.value.trim();
     const coverImage = form.coverImage.value.trim();
     const userEmail = user.email;
+    const salaryRange = form.salaryRange.value.trim();
+    const location = form.location.value.trim();
+    const deadline = form.deadline.value; 
 
-    if (!title || !category || !summary || !coverImage) {
+    if (
+      !title ||
+      !category ||
+      !summary ||
+      !coverImage ||
+      !salaryRange ||
+      !location ||
+      !deadline
+    ) {
       toast.error("Please fill in all required fields.");
       return;
     }
@@ -43,126 +55,169 @@ const AddJob = () => {
       summary,
       coverImage,
       userEmail,
-      // postedAt set on server
+      salaryRange,
+      location,
+      deadline,
     };
 
     try {
       setSubmitting(true);
       const { data } = await AxiosAPI.post("/allJobs", newJob);
-      // success if insert acknowledged
       if (data?.acknowledged || data?.insertedId || data?.insertedCount >= 0) {
-        toast.success("Post added successfully!");
+        toast.success("Job posted successfully!");
         form.reset();
       } else {
-        toast.success("Submitted!"); // fallback
+        toast.success("Submitted! (Confirmation pending)"); 
       }
     } catch (err) {
-      toast.error(err.message || "Failed to submit");
+      console.error("Submission error:", err);
+      toast.error(err.message || "Failed to submit the job post.");
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <div className="max-w-2xl md:mx-auto p-4 md:p-8 bg-base-300 mx-5 mt-10 rounded-xl mb-10">
-      <h1 className="text-2xl md:text-3xl font-semibold mb-6">Add New Job</h1>
+    <div className="max-w-2xl md:mx-auto p-4 md:p-8 bg-base-300 mx-5 mt-10 rounded-xl mb-10 shadow-lg">
+      <h1 className="text-2xl md:text-3xl font-semibold mb-6 border-b pb-2 text-gray-800">
+        Add New Job Posting
+      </h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Title */}
         <div>
-          <label className="block mb-1 font-medium">
-            Title<span className="text-red-500">*</span>
+          <label className="block mb-1 font-medium text-gray-700">
+            Job Title<span className="text-red-500">*</span>
           </label>
           <input
             type="text"
             name="title"
             className="input input-bordered w-full"
-            placeholder="Enter a clear, concise title"
+            placeholder="e.g., Senior React Developer"
             required
           />
         </div>
 
-        {/* Posted By (read-only) */}
-        <div>
-          <label className="block mb-1 font-medium">Posted By</label>
-          <input
-            type="text"
-            className="input input-bordered w-full"
-            value={user?.displayName || "Anonymous"}
-            readOnly
-          />
-        </div>
-
-        {/* Category */}
-        <div>
-          <label className="block mb-1 font-medium">
-            Category<span className="text-red-500">*</span>
-          </label>
-          <select
-            name="category"
-            className="select select-bordered w-full"
-            defaultValue=""
-            required
-          >
-            <option value="" disabled>
-              Select a category
-            </option>
-            {CATEGORIES.map((c) => (
-              <option key={c} value={c}>
-                {c}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className="block mb-1 font-medium text-gray-700">
+              Category<span className="text-red-500">*</span>
+            </label>
+            <select
+              name="category"
+              className="select select-bordered w-full"
+              defaultValue=""
+              required
+            >
+              <option value="" disabled>
+                Select a category
               </option>
-            ))}
-          </select>
+              {CATEGORIES.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label className="block mb-1 font-medium text-gray-700">
+              Posted By
+            </label>
+            <input
+              type="text"
+              className="input input-bordered w-full bg-gray-100 cursor-not-allowed"
+              value={user?.displayName || "Anonymous"}
+              readOnly
+            />
+          </div>
         </div>
 
-        {/* Summary */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label className="block mb-1 font-medium text-gray-700">
+              Salary Range (USD)<span className="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              name="salaryRange"
+              className="input input-bordered w-full"
+              placeholder="$50k - $80k / year"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1 font-medium text-gray-700">
+              Location / Type<span className="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              name="location"
+              className="input input-bordered w-full"
+              placeholder="e.g., Remote, Berlin, CA"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1 font-medium text-gray-700">
+              Deadline<span className="text-red-500">*</span>
+            </label>
+            <input
+              type="date"
+              name="deadline"
+              className="input input-bordered w-full"
+              required
+            />
+          </div>
+        </div>
+
         <div>
-          <label className="block mb-1 font-medium">
-            Summary<span className="text-red-500">*</span>
+          <label className="block mb-1 font-medium text-gray-700">
+            Job Summary/Description<span className="text-red-500">*</span>
           </label>
           <textarea
             name="summary"
             className="textarea textarea-bordered w-full min-h-32"
-            placeholder="Describe the post in a few sentences"
+            placeholder="Describe the job requirements, responsibilities, and benefits."
             required
           />
         </div>
 
-        {/* Cover Image (URL) */}
         <div>
-          <label className="block mb-1 font-medium">
+          <label className="block mb-1 font-medium text-gray-700">
             Cover Image URL<span className="text-red-500">*</span>
           </label>
           <input
             type="url"
             name="coverImage"
             className="input input-bordered w-full"
-            placeholder="https://example.com/image.jpg"
+            placeholder="https://example.com/company_logo.png"
             required
           />
         </div>
 
-        {/* User Email (read-only) */}
         <div>
-          <label className="block mb-1 font-medium">User Email</label>
+          <label className="block mb-1 font-medium text-gray-700">
+            Poster Email
+          </label>
           <input
             type="email"
-            className="input input-bordered w-full"
+            className="input input-bordered w-full bg-gray-100 cursor-not-allowed"
             value={user?.email || ""}
             readOnly
           />
         </div>
 
-        {/* Submit */}
-       <div className="text-center">
-         <button
-          type="submit"
-          className="btn bg-[#2575FC] text-white hover:bg-black w-full text-2xl"
-          disabled={submitting}
-        >
-          {submitting ? "Submitting..." : "Submit"}
-        </button>
-       </div>
+        <div className="pt-4">
+          <button
+            type="submit"
+            className="btn bg-blue-600 text-white hover:bg-blue-700 w-full text-lg md:text-xl font-bold transition duration-300"
+            disabled={submitting}
+          >
+            {submitting ? "Submitting Job Post..." : "Publish Job Post"}
+          </button>
+        </div>
       </form>
 
       <ToastContainer position="top-center" />

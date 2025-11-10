@@ -7,7 +7,7 @@ const AllJobs = () => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [sortOrder, setSortOrder] = useState("newest"); // "newest" | "oldest"
+  const [sortOrder, setSortOrder] = useState("newest"); 
 
   useEffect(() => {
     (async () => {
@@ -48,7 +48,6 @@ const AllJobs = () => {
       <div className="text-center mt-20 text-error font-semibold">{error}</div>
     );
   }
-
   return (
     <div className="bg-base-200">
       <div className="w-11/12 mx-auto px-4 md:px-8 py-8">
