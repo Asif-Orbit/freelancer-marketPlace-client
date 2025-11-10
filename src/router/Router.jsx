@@ -5,6 +5,10 @@ import AddJob from "../components/addJob/AddJob";
 import MyAddedJob from "../components/myAddedJob/MyAddedJob";
 import AllJobs from "../components/allJob/AllJobs";
 import MyAcceptedTasks from "../components/myAcceptedTasks.jsx/MyAcceptedTasks";
+import Login from "../pages/login/Login";
+import Register from "../pages/register/Register";
+import NotFound from "../pages/error/NotFound";
+import PrivateRoute from "../privateRoute/PrivateRoute";
 
 
 export const router = createBrowserRouter([
@@ -18,7 +22,7 @@ export const router = createBrowserRouter([
             },
             {
                 path:"/addJob",
-                element:<AddJob></AddJob>
+                element:<PrivateRoute><AddJob></AddJob></PrivateRoute>
             },
             {
                 path:"/allJobs",
@@ -26,11 +30,24 @@ export const router = createBrowserRouter([
             },
             {
                 path:"/myAddedJobs",
-                element:<MyAddedJob></MyAddedJob>
+                element:<PrivateRoute><MyAddedJob></MyAddedJob></PrivateRoute>
             },
             {
                 path:"/my-accepted-tasks",
-                element:<MyAcceptedTasks></MyAcceptedTasks>
+                element:<PrivateRoute><MyAcceptedTasks></MyAcceptedTasks></PrivateRoute>
+            },
+            {
+                path: "/login",
+                element: <Login></Login>
+            },
+            {
+                path: "/register",
+                element: <Register></Register>
+            },
+            {
+                path:"*",
+                element:<NotFound></NotFound>
+
             }
         ]
     }

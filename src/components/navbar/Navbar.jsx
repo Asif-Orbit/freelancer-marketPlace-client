@@ -1,16 +1,22 @@
-import React from "react";
+import React, { use } from "react";
 import { Link, NavLink } from "react-router";
 import logo from "../../assets/logo.png";
+import { AuthContext } from "../../contexts/authContexts/AuthContexts";
 
 const Navbar = () => {
+  const { user } = use(AuthContext);
   const links = (
     <>
       <div className="navbar-link space-x-6 text-xl flex flex-col lg:flex-row">
         <NavLink to="/">Home</NavLink>
         <NavLink to="/allJobs">All Jobs</NavLink>
-        <NavLink to="/addJob">Add a Job</NavLink>
-        <NavLink to="/myAddedJobs">My Added Jobs</NavLink>
-        <NavLink to="/my-accepted-tasks">My Accepted Tasks</NavLink>
+        {user && (
+          <div className="space-x-6  flex flex-col lg:flex-row">
+            <NavLink to="/addJob">Add a Job</NavLink>
+            <NavLink to="/myAddedJobs">My Added Jobs</NavLink>
+            <NavLink to="/my-accepted-tasks">My Accepted Tasks</NavLink>
+          </div>
+        )}
       </div>
     </>
   );
@@ -60,12 +66,19 @@ const Navbar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
+
         <div className="navbar-end">
-          <Link className="text-xl border-2 border-[#9F62F2] px-3 py-1 rounded-sm font-medium bg-linear-to-r from-[#6A11CB] to-[#2575FC] bg-clip-text text-transparent">
+          <Link
+            to="/login"
+            className="text-xl border-2 border-[#9F62F2] px-3 py-1 rounded-sm font-medium bg-linear-to-r from-[#6A11CB] to-[#2575FC] bg-clip-text text-transparent"
+          >
             Login
           </Link>
 
-          <Link className="btn  border-none bg-linear-to-r from-[#6A11CB] to-[#2575FC] text-white ml-4 hover:text-black shadow-none md:flex hidden">
+          <Link
+            to="/register"
+            className="btn  border-none bg-linear-to-r from-[#6A11CB] to-[#2575FC] text-white ml-4 hover:text-black shadow-none md:flex hidden"
+          >
             Register
           </Link>
         </div>
