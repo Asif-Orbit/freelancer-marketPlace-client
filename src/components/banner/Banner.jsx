@@ -4,7 +4,7 @@ import { Link } from "react-router";
 
 const Banner = () => {
   return (
-    <section className="relative overflow-hidden bg-linear-to-br from-indigo-500 via-purple-500 to-pink-500 text-white">
+    <section className="relative overflow-hidden bg-linear-to-br via-[#6A11CB] from-[#9F62F2] to-[#2575FC] text-white">
       {/* floating shapes */}
       <motion.div
         initial={{ y: -30, opacity: 0.3 }}
@@ -36,7 +36,7 @@ const Banner = () => {
             done.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Link to="/addJob" className="btn bg-blue-600 hover:bg-blue-700 text-white">
+            <Link to="/addJob" className="btn bg-blue-600 hover:bg-blue-700 text-white shadow-none">
               Create a Job
             </Link>
             <Link
