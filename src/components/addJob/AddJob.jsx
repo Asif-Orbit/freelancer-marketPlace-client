@@ -5,11 +5,14 @@ import AxiosAPI from "../axiosAPI/AxiosAPI";
 
 const CATEGORIES = [
   "Web Development",
-  "Design",
-  "Writing",
-  "Marketing",
-  "Data & AI",
-  "Mobile Apps",
+  "Digital Marketing",
+  "Graphics Designing",
+  "UI/UX Design",
+  "Content Writing",
+  "Mobile Development",
+  "Video Editing",
+  "Data Analysis",
+  "E-commerce Development",
   "Others",
 ];
 

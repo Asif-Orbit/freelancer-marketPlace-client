@@ -11,7 +11,7 @@ const JobDetails = () => {
   const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(true);
   const isOwnJob =
-    user?.email && job?.userEmail && user?.email === job.userEmail;
+    user?.email && job?.userEmail && user.email === job.userEmail;
   const handleAccept = async () => {
     if (isOwnJob) {
       toast.info("You can’t accept your own job.");

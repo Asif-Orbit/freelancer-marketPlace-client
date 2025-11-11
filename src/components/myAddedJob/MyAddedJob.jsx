@@ -2,6 +2,20 @@ import { use, useEffect, useState } from "react";
 import { AuthContext } from "../../contexts/authContexts/AuthContexts";
 import AxiosAPI from "../axiosAPI/AxiosAPI";
 import { Link } from "react-router";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
+
+const CATEGORIES = [
+  "Web Development",
+  "Digital Marketing",
+  "Graphics Designing",
+  "UI/UX Design",
+  "Content Writing",
+  "Mobile Development",
+  "Video Editing",
+  "Data Analysis",
+  "E-commerce Development",
+];
 
 const MyAddedJobs = () => {
   const { user } = use(AuthContext);
@@ -26,6 +40,37 @@ const MyAddedJobs = () => {
       }
     })();
   }, [user]);
+
+  const handleDelete = async (id) => {
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (!result.isConfirmed) return;
+    try {
+      await AxiosAPI.delete(`/allJobs/${id}`, {
+        params: { userEmail: user.email },
+      });
+      setJobs((prev) => prev.filter((j) => j._id !== id));
+      toast.success("Job deleted");
+    } catch (err) {
+      console.error(err);
+      toast.error(err?.response?.data?.message || "Failed to delete job.");
+    }
+    await Swal.fire({
+      title: "Deleted!",
+      text: "Your job has been deleted.",
+      icon: "success",
+      timer: 1500,
+      showConfirmButton: false,
+    });
+  };
 
   if (loading) {
     return (
@@ -83,16 +128,19 @@ const MyAddedJobs = () => {
                         })
                       : "—"}
                   </td>
-                  <td className="max-w-xs text-sm truncate">
+                  <td className="max-w-xs text-sm truncate" title={job.summary}>
                     {job.summary || "—"}
                   </td>
                   <td>
                     <div className="flex gap-2">
-                      <Link
-                        to={`/allJobs/${job._id}`}
-                        className="btn btn-xs btn-primary"
-                      >
+                      <Link to={`/allJobs/${job._id}`} className="btn btn-xs">
                         View
+                      </Link>
+                      <Link
+                        to={`/updateJob/${job._id}`}
+                        className="btn btn-xs btn-info"
+                      >
+                        Update
                       </Link>
                       <button
                         onClick={() => handleDelete(job._id)}
@@ -110,18 +158,6 @@ const MyAddedJobs = () => {
       )}
     </div>
   );
-
-  async function handleDelete(id) {
-    const confirm = window.confirm("Are you sure you want to delete this job?");
-    if (!confirm) return;
-    try {
-      await AxiosAPI.delete(`/allJobs/${id}`);
-      setJobs(jobs.filter((job) => job._id !== id));
-    } catch (error) {
-      console.error(error);
-      alert("Failed to delete job.");
-    }
-  }
 };
 
 export default MyAddedJobs;

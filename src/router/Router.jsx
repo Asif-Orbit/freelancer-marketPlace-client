@@ -10,6 +10,7 @@ import Register from "../pages/register/Register";
 import NotFound from "../pages/error/NotFound";
 import PrivateRoute from "../privateRoute/PrivateRoute";
 import JobDetails from "../components/jobDetails/JobDetails";
+import UpdateJob from "../pages/updateJob/UpdateJob";
 
 
 export const router = createBrowserRouter([
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
             {
                 path:"/myAddedJobs",
                 element:<PrivateRoute><MyAddedJob></MyAddedJob></PrivateRoute>
+            },
+            {
+                path:"/updateJob/:id",
+                element:<PrivateRoute><UpdateJob></UpdateJob></PrivateRoute>
             },
             {
                 path:"/my-accepted-tasks",
