@@ -1,12 +1,42 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useParams } from "react-router";
-import AxiosAPI from "../axiosAPI/AxiosAPI";
 import { FaMapMarkerAlt, FaCalendarAlt, FaMoneyBillWave } from "react-icons/fa";
+import { toast, ToastContainer } from "react-toastify";
+import { AuthContext } from "../../contexts/authContexts/AuthContexts";
+import AxiosAPI from "../axiosAPI/AxiosAPI";
 
 const JobDetails = () => {
+  const { user } = use(AuthContext);
   const { id } = useParams();
   const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(true);
+  const isOwnJob =
+    user?.email && job?.userEmail && user?.email === job.userEmail;
+  const handleAccept = async () => {
+    if (isOwnJob) {
+      toast.info("You can’t accept your own job.");
+      return;
+    }
+    try {
+      const snapshot = {
+        title: job.title,
+        category: job.category,
+        postedBy: job.postedBy,
+        userEmail: job.userEmail,
+        coverImage: job.coverImage,
+        summary: job.summary,
+        postedAt: job.postedAt,
+      };
+      await AxiosAPI.post("/acceptedTasks", {
+        jobId: job._id, 
+        userEmail: user.email, 
+        snapshot,
+      });
+      toast.success("Task accepted!");
+    } catch (e) {
+      toast.error("Failed to accept task");
+    }
+  };
 
   useEffect(() => {
     (async () => {
@@ -47,7 +77,7 @@ const JobDetails = () => {
   } = job;
 
   return (
-    <div className="w-9/12 mx-auto p-4 md:p-8">
+    <div className="w-11/12 lg:w-9/12 mx-auto p-4 md:p-8">
       <div className="bg-white shadow-xl rounded-xl p-6 mb-8 border-t-4 border-blue-500">
         <div className="flex flex-col md:flex-row md:items-start gap-6">
           <img
@@ -84,7 +114,11 @@ const JobDetails = () => {
             </div>
 
             <div className="mt-6">
-              <button className="w-full md:w-auto px-10 py-3 bg-blue-500 text-white font-bold rounded-lg shadow-lg hover:bg-blue-600 transition duration-300 transform hover:scale-105">
+              <button
+                onClick={handleAccept}
+                className="w-full md:w-auto px-10 py-3 bg-blue-500 text-white font-bold rounded-lg shadow-lg hover:bg-blue-600 transition duration-300 transform hover:scale-105"
+                title={isOwnJob ? "You can’t accept your own job" : "Accept this job"}
+              >
                 Accept Now
               </button>
             </div>
@@ -146,6 +180,7 @@ const JobDetails = () => {
           </div>
         </div>
       </div>
+      <ToastContainer></ToastContainer>
     </div>
   );
 };
