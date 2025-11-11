@@ -11,7 +11,7 @@ const JobCard = ({ job }) => {
     postedAt,
   } = job;
 
-  const fallbackImg = "https://i.ibb.co/cKHhDvdB/image.png";
+  const fallbackImg = "https://i.ibb.co/G4Y9djWZ/image.png";
 
   // Format posted date/time
   const formattedDate = postedAt

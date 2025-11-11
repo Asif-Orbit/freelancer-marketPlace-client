@@ -5,15 +5,14 @@ import { AuthContext } from "../../contexts/authContexts/AuthContexts";
 import { Link, useNavigate, useParams } from "react-router";
 
 const CATEGORIES = [
-  "Web Development",
-  "Digital Marketing",
-  "Graphics Designing",
+  "Web Dev",
+  "Marketing",
+  "Design",
   "UI/UX Design",
-  "Content Writing",
-  "Mobile Development",
+  "Writing",
   "Video Editing",
-  "Data Analysis",
-  "E-commerce Development",
+  "E-commerce",
+  "Others",
 ];
 
 const UpdateJob = () => {
@@ -83,11 +82,11 @@ const UpdateJob = () => {
     }
     try {
       setSubmitting(true);
-      const payload = { ...form, userEmail: user.email }; // server checks ownership
+      const payload = { ...form, userEmail: user.email }; 
       const { data } = await AxiosAPI.patch(`/allJobs/${id}`, payload);
       if (data?.modifiedCount >= 0) {
         toast.success("Job updated");
-        navigate("/myAddedJobs"); // or back to details: `/allJobs/${id}`
+        navigate("/myAddedJobs");
       } else {
         toast.info("No changes made");
       }
@@ -137,6 +136,7 @@ const UpdateJob = () => {
           <div>
             <label className="label">Posted By</label>
             <input
+            readOnly
               name="postedBy"
               value={form.postedBy}
               onChange={onChange}

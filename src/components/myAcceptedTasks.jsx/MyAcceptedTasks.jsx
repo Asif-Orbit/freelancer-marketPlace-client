@@ -5,7 +5,7 @@ import { CheckCircle, XCircle } from "lucide-react";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../contexts/authContexts/AuthContexts";
 
-const fallbackImg = "https://i.ibb.co/cKHhDvdB/image.png";
+const fallbackImg = "https://i.ibb.co/G4Y9djWZ/image.png";
 
 const MyAcceptedTasks=()=> {
   const { user } = use(AuthContext);

@@ -11,6 +11,7 @@ import NotFound from "../pages/error/NotFound";
 import PrivateRoute from "../privateRoute/PrivateRoute";
 import JobDetails from "../components/jobDetails/JobDetails";
 import UpdateJob from "../pages/updateJob/UpdateJob";
+import DeleteJob from "../pages/deleteJob/DeleteJob";
 
 
 export const router = createBrowserRouter([
@@ -45,6 +46,10 @@ export const router = createBrowserRouter([
             {
                 path:"/my-accepted-tasks",
                 element:<PrivateRoute><MyAcceptedTasks></MyAcceptedTasks></PrivateRoute>
+            },
+            {
+                path:"deleteJob/:id",
+                element:<PrivateRoute><DeleteJob></DeleteJob></PrivateRoute>
             },
             {
                 path: "/login",

@@ -6,15 +6,14 @@ import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
 const CATEGORIES = [
-  "Web Development",
-  "Digital Marketing",
-  "Graphics Designing",
+  "Web Dev",
+  "Marketing",
+  "Design",
   "UI/UX Design",
-  "Content Writing",
-  "Mobile Development",
+  "Writing",
   "Video Editing",
-  "Data Analysis",
-  "E-commerce Development",
+  "E-commerce",
+  "Others",
 ];
 
 const MyAddedJobs = () => {
@@ -41,36 +40,36 @@ const MyAddedJobs = () => {
     })();
   }, [user]);
 
-  const handleDelete = async (id) => {
-    const result = await Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    });
+//   const handleDelete = async (id) => {
+//     const result = await Swal.fire({
+//       title: "Are you sure?",
+//       text: "You won't be able to revert this!",
+//       icon: "warning",
+//       showCancelButton: true,
+//       confirmButtonColor: "#3085d6",
+//       cancelButtonColor: "#d33",
+//       confirmButtonText: "Yes, delete it!",
+//     });
 
-    if (!result.isConfirmed) return;
-    try {
-      await AxiosAPI.delete(`/allJobs/${id}`, {
-        params: { userEmail: user.email },
-      });
-      setJobs((prev) => prev.filter((j) => j._id !== id));
-      toast.success("Job deleted");
-    } catch (err) {
-      console.error(err);
-      toast.error(err?.response?.data?.message || "Failed to delete job.");
-    }
-    await Swal.fire({
-      title: "Deleted!",
-      text: "Your job has been deleted.",
-      icon: "success",
-      timer: 1500,
-      showConfirmButton: false,
-    });
-  };
+//     if (!result.isConfirmed) return;
+//     try {
+//       await AxiosAPI.delete(`/allJobs/${id}`, {
+//         params: { userEmail: user.email },
+//       });
+//       setJobs((prev) => prev.filter((j) => j._id !== id));
+//       toast.success("Job deleted");
+//     } catch (err) {
+//       console.error(err);
+//       toast.error(err?.response?.data?.message || "Failed to delete job.");
+//     }
+//     await Swal.fire({
+//       title: "Deleted!",
+//       text: "Your job has been deleted.",
+//       icon: "success",
+//       timer: 1500,
+//       showConfirmButton: false,
+//     });
+//   };
 
   if (loading) {
     return (
@@ -142,12 +141,12 @@ const MyAddedJobs = () => {
                       >
                         Update
                       </Link>
-                      <button
-                        onClick={() => handleDelete(job._id)}
+                      <Link
+                      to={`/deleteJob/${job._id}`}
                         className="btn btn-xs btn-error"
                       >
                         Delete
-                      </button>
+                      </Link>
                     </div>
                   </td>
                 </tr>

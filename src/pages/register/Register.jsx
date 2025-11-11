@@ -7,8 +7,8 @@ import { toast, ToastContainer } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 
 const Register = () => {
-  const { createUser, signInWithGoogle, setUser } = use(AuthContext);
-  const [loading, setLoading] = useState(false);
+  const { createUser, signInWithGoogle, setUser,setLoading } = use(AuthContext);
+  const [regLoading, setRegLoading] = useState(false);
   const [hide, setHide] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -45,7 +45,7 @@ const Register = () => {
     if (password.length < minLength) {
       return setError("❌ Password must be at least 6 characters long.");
     }
-    setLoading(true);
+    setRegLoading(true);
 
     createUser(email, password)
       .then(() => {
@@ -62,6 +62,7 @@ const Register = () => {
           .catch((err) => setError(err));
       })
       .catch((error) => {
+        setLoading(false)
         if (error.code === "auth/email-already-in-use") {
           toast.error("❌ This email is already registered!");
         } else if (error.code === "auth/invalid-email") {
@@ -72,17 +73,17 @@ const Register = () => {
           toast.error(error.message);
         }
       })
-      .finally(() => setLoading(false));
+      .finally(() => setRegLoading(false));
   };
   const handleGoogleSignIn = () => {
     signInWithGoogle()
       .then(() => navigate("/"))
-      .catch((error) => toast.error(error));
+      .catch((error) =>{setLoading(false), toast.error(error)});
   };
   return (
     <div>
       <title>Register Your Account</title>
-      {loading && (
+      {regLoading && (
         <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center z-50">
           <span className="loading loading-bars loading-lg text-[#2575FC]"></span>
           <p className="text-white text-lg font-semibold">

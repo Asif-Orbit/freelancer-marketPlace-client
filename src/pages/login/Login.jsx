@@ -5,8 +5,8 @@ import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { AuthContext } from "../../contexts/authContexts/AuthContexts";
 
 const Login = () => {
-  const { signInUser} = use(AuthContext);
-  const [loading, setLoading] = useState(false);
+  const { signInUser, setLoading} = use(AuthContext);
+  const [loginLoading, setLoginLoading] = useState(false);
   const [hide, setHide] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -23,13 +23,14 @@ const Login = () => {
     } else if (!password) {
       return toast.error("Please enter your password!");
     }
-    setLoading(true);
+    setLoginLoading(true);
     signInUser(email, password)
       .then(() => {
         e.target.reset();
         navigate(location.state || "/");
       })
       .catch((error) => {
+        setLoading(false)
         if (error.code === "auth/invalid-email") {
           toast.error("❌ Invalid email address!");
         } else if (error.code === "auth/user-not-found") {
@@ -41,12 +42,12 @@ const Login = () => {
           
         }
       })
-      .finally(() => setLoading(false));
+      .finally(() => setLoginLoading(false));
   };
   return (
     <div>
       <title>Login Your Account</title>
-      {loading && (
+      {loginLoading && (
         <div className="fixed inset-0 bg-black bg-opacity-30 flex justify-center items-center z-50">
           <span className="loading loading-bars loading-lg text-[#2575FC]"></span>
           <p className="text-white text-lg font-semibold">
