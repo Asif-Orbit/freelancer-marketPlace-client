@@ -2,6 +2,7 @@ import React, { use } from "react";
 import { Link, NavLink } from "react-router";
 import logo from "../../assets/logo.png";
 import { AuthContext } from "../../contexts/authContexts/AuthContexts";
+import { FaUserLarge } from "react-icons/fa6";
 
 const Navbar = () => {
   const { user, logOut, loading } = use(AuthContext);

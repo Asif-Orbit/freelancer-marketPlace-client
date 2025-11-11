@@ -12,6 +12,7 @@ import PrivateRoute from "../privateRoute/PrivateRoute";
 import JobDetails from "../components/jobDetails/JobDetails";
 import UpdateJob from "../pages/updateJob/UpdateJob";
 import DeleteJob from "../pages/deleteJob/DeleteJob";
+import NoJobFound from "../pages/error/NoJobFound";
 
 
 export const router = createBrowserRouter([
@@ -33,6 +34,7 @@ export const router = createBrowserRouter([
             },
             {
                 path:"allJobs/:id",
+                errorElement:<NoJobFound></NoJobFound>,
                 element:<PrivateRoute><JobDetails></JobDetails></PrivateRoute>
             },
             {

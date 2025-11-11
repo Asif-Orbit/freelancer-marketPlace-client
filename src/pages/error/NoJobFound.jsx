@@ -2,9 +2,6 @@ import React from "react";
 import { Link } from "react-router";
 
 const NoJobFound = () => {
-  const refresh =()=>{
-    window.location.reload()
-  }
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-base-200 p-4">
       <title>Job Not found</title>
@@ -14,7 +11,7 @@ const NoJobFound = () => {
         <p className="text-gray-600 mb-6">
           The Job you are looking for does not exist or has been moved.
         </p>
-        <Link to="/allJobs" onClick={refresh} className="btn btn-primary">
+        <Link to="/allJobs" className="btn btn-primary">
           Go Back All Jobs
         </Link>
       </div>

@@ -4,15 +4,13 @@ import { AuthContext } from "../../contexts/authContexts/AuthContexts";
 import AxiosAPI from "../axiosAPI/AxiosAPI";
 
 const CATEGORIES = [
-  "Web Development",
-  "Digital Marketing",
-  "Graphics Designing",
+  "Web Dev",
+  "Marketing",
+  "Design",
   "UI/UX Design",
-  "Content Writing",
-  "Mobile Development",
+  "Writing",
   "Video Editing",
-  "Data Analysis",
-  "E-commerce Development",
+  "E-commerce",
   "Others",
 ];
 
@@ -82,6 +80,7 @@ const AddJob = () => {
 
   return (
     <div className="max-w-2xl md:mx-auto p-4 md:p-8 bg-base-300 mx-5 mt-10 rounded-xl mb-10 shadow-lg">
+      <title>Add Job</title>
       <h1 className="text-2xl md:text-3xl font-semibold mb-6 border-b pb-2 text-gray-800">
         Add New Job Posting
       </h1>

@@ -7,6 +7,7 @@ import About from '../about/About';
 const Home = () => {
     return (
         <div>
+            <title>Home</title>
             <Banner></Banner>
             <HomeLatestJob></HomeLatestJob>
             <TopCategories></TopCategories>

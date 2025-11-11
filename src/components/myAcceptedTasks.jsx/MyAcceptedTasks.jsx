@@ -102,6 +102,7 @@ const MyAcceptedTasks=()=> {
 function GridView({ items, onRemove }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <title>My Accepted Tasks</title>
       {items.map((it) => (
         <div key={it._id} className="card bg-base-200 shadow hover:shadow-lg transition">
           <figure className=" bg-base-300 overflow-hidden rounded-t-xl p-5">

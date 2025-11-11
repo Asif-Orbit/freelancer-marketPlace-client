@@ -3,6 +3,7 @@ import { useNavigate, useParams, Link } from "react-router";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../contexts/authContexts/AuthContexts";
 import AxiosAPI from "../../components/axiosAPI/AxiosAPI";
+import NoJobFound from "../error/NoJobFound";
 
 const fallbackImg = "https://i.ibb.co/G4Y9djWZ/image.png";
 
@@ -83,12 +84,7 @@ const DeleteJob = () => {
 
   if (!job) {
     return (
-      <div className="max-w-xl mx-auto p-6 text-center">
-        <p className="text-error mb-4">{err || "Job not found."}</p>
-        <Link to="/myJobs" className="btn btn-outline">
-          Back to My Jobs
-        </Link>
-      </div>
+      <NoJobFound></NoJobFound>
     );
   }
 
@@ -101,6 +97,7 @@ const DeleteJob = () => {
 
   return (
     <div className="w-11/12 lg:w-8/12 mx-auto py-8">
+        <title>Delete Job</title>
       <h1 className="text-3xl font-bold mb-4">Delete Job</h1>
 
       <div className="card bg-base-100 shadow">

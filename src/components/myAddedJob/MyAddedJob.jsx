@@ -42,7 +42,7 @@ const MyAddedJob = () => {
 
   return (
     <div className="w-11/12 mx-auto px-4 md:px-8 py-8">
-      {/* Header with Toggle */}
+      <title>My Added Jobs</title>
       <div className="flex justify-between items-center mb-6 flex-wrap gap-4">
         <h1 className="text-3xl font-bold">
           My Added Jobs <span className="text-primary">({jobs.length})</span>
@@ -63,7 +63,6 @@ const MyAddedJob = () => {
           </button>
         </div>
       </div>
-
       {jobs.length === 0 ? (
         <div className="text-center mt-20 text-gray-500 text-lg">
           You haven’t added any jobs yet.
@@ -81,7 +80,10 @@ const MyAddedJob = () => {
                   alt={job.title}
                   className="w-full h-72 object-cover rounded-xl transition-transform duration-300 hover:scale-105"
                   loading="lazy"
-                  onError={(e) => (e.currentTarget.src = "https://i.ibb.co/cKHhDvdB/image.png")}
+                  onError={(e) =>
+                    (e.currentTarget.src =
+                      "https://i.ibb.co/cKHhDvdB/image.png")
+                  }
                 />
               </figure>
               <div className="card-body">
@@ -110,10 +112,16 @@ const MyAddedJob = () => {
                   <Link to={`/allJobs/${job._id}`} className="btn btn-sm">
                     View
                   </Link>
-                  <Link to={`/updateJob/${job._id}`} className="btn btn-sm btn-info">
+                  <Link
+                    to={`/updateJob/${job._id}`}
+                    className="btn btn-sm btn-info"
+                  >
                     Update
                   </Link>
-                  <Link to={`/deleteJob/${job._id}`} className="btn btn-sm btn-error">
+                  <Link
+                    to={`/deleteJob/${job._id}`}
+                    className="btn btn-sm btn-error"
+                  >
                     Delete
                   </Link>
                 </div>

@@ -117,7 +117,8 @@ const UpdateJob = () => {
 
   return (
     <div className="w-11/12 lg:w-9/12 mx-auto py-8">
-      <h1 className="text-3xl font-bold mb-6">Edit Job Posting</h1>
+        <title>Update Job</title>
+      <h1 className="text-3xl font-bold mb-6">Update Job</h1>
       <form onSubmit={onSubmit} className="space-y-5">
         {/* Row 1 */}
         <div className="grid md:grid-cols-2 gap-4">

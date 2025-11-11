@@ -50,6 +50,7 @@ const AllJobs = () => {
   }
   return (
     <div className="bg-base-200">
+        <title>All Jobs</title>
       <div className="w-11/12 mx-auto px-4 md:px-8 py-8">
         {/* Header + Sort */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">

@@ -4,6 +4,8 @@ import { FaMapMarkerAlt, FaCalendarAlt, FaMoneyBillWave } from "react-icons/fa";
 import { toast, ToastContainer } from "react-toastify";
 import { AuthContext } from "../../contexts/authContexts/AuthContexts";
 import AxiosAPI from "../axiosAPI/AxiosAPI";
+import NoJobFound from "../../pages/error/NoJobFound";
+  const fallbackImg = "https://i.ibb.co/G4Y9djWZ/image.png";
 
 const JobDetails = () => {
   const { user } = use(AuthContext);
@@ -34,7 +36,7 @@ const JobDetails = () => {
       });
       toast.success("Task accepted!");
     } catch (e) {
-      toast.error("Failed to accept task");
+      toast.error("Task Already Accepted!");
     }
   };
 
@@ -59,9 +61,7 @@ const JobDetails = () => {
 
   if (!job)
     return (
-      <div className="text-center mt-20 text-xl font-semibold text-red-500">
-        ❌ Job not found or an error occurred.
-      </div>
+      <NoJobFound></NoJobFound>
     );
   const {
     title,
@@ -78,10 +78,11 @@ const JobDetails = () => {
 
   return (
     <div className="w-11/12 lg:w-9/12 mx-auto p-4 md:p-8">
+        <title>Job Details</title>
       <div className="bg-white shadow-xl rounded-xl p-6 mb-8 border-t-4 border-blue-500">
         <div className="flex flex-col md:flex-row md:items-start gap-6">
           <img
-            src={coverImage}
+            src={coverImage || fallbackImg}
             alt={title}
             className="w-full md:w-80 h-48 object-cover rounded-lg shadow-md"
           />
