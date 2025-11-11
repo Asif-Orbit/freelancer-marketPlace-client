@@ -34,15 +34,15 @@ const About=()=> {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="rounded-2xl border border-base-500 p-4 shadow bg-blue-50"
+          className="rounded-2xl border border-base-500 text-Black p-4 shadow bg-blue-50"
         >
             <div className="mb-4 text-sm text-black">
             Discover the scale and efficiency of our platform.
           </div>
-          <div className="grid grid-cols-3 gap-4 ">
-            <StatBox label="Active Jobs" value="1,200+" />
-            <StatBox label="Freelancers" value="8,500+" />
-            <StatBox label="Avg. Match Time" value="< 24h" />
+          <div className="grid grid-cols-3 gap-4 text-black">
+            <StatBox label="Active Jobs" value="1,200+"/>
+            <StatBox label="Freelancers" value="8,500+"/>
+            <StatBox label="Avg. Match Time" value="< 24h"/>
           </div>
           
         </motion.div>
@@ -54,8 +54,8 @@ const About=()=> {
 const StatBox=({ label, value })=> {
   return (
     <div className="rounded-xl border border-base-400 p-3 text-center bg-base-50">
-      <div className="text-2xl font-extrabold">{value}</div>
-      <div className="text-xs text-base-content/70 mt-1">{label}</div>
+      <div className="text-2xl font-extrabold text-black">{value}</div>
+      <div className="text-xs text-black mt-1">{label}</div>
     </div>
   );
 }

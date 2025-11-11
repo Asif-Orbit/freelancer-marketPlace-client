@@ -3,13 +3,14 @@ import { Link, NavLink } from "react-router";
 import logo from "../../assets/logo.png";
 import { AuthContext } from "../../contexts/authContexts/AuthContexts";
 import { FaUserLarge } from "react-icons/fa6";
+import ThemeToggle from "../themeToggle/ThemeToggle";
 
 const Navbar = () => {
   const { user, logOut, loading } = use(AuthContext);
-  
+
   const links = (
     <>
-      <div className="navbar-link space-x-6 text-xl flex flex-col lg:flex-row">
+      <div className="navbar-link space-x-6 text-xl text-black flex flex-col lg:flex-row">
         <NavLink to="/">Home</NavLink>
         <NavLink to="/allJobs">All Jobs</NavLink>
         {user && (
@@ -61,7 +62,7 @@ const Navbar = () => {
               alt="Freelance logo"
               className="w-12 h-12 rounded-full"
             />
-            <span>
+            <span className="text-black">
               FL
               <span className="bg-linear-to-r from-[#6A11CB] to-[#2575FC] bg-clip-text text-transparent">
                 MP
@@ -81,7 +82,6 @@ const Navbar = () => {
                   className="tooltip tooltip-bottom"
                   data-tip={user.displayName}
                 >
-                  
                   <img
                     src={user.photoURL}
                     alt=""
@@ -98,7 +98,7 @@ const Navbar = () => {
                   <FaUserLarge className="bg-white text-5xl p-1 rounded-full mr-2" />
                 </span>
               )}
-
+              <ThemeToggle></ThemeToggle>
               <button
                 onClick={() => logOut()}
                 className="text-xl border-2 border-[#9F62F2] px-3 py-1 rounded-sm font-medium bg-linear-to-r from-[#6A11CB] to-[#2575FC] bg-clip-text text-transparent"
@@ -108,6 +108,7 @@ const Navbar = () => {
             </div>
           ) : (
             <div className="navbar-end">
+              <ThemeToggle></ThemeToggle>
               <Link
                 to="/login"
                 className="text-xl border-2 border-[#9F62F2] px-3 py-1 rounded-sm font-medium bg-linear-to-r from-[#6A11CB] to-[#2575FC] bg-clip-text text-transparent"

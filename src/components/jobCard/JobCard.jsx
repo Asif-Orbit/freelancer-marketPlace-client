@@ -51,7 +51,7 @@ const JobCard = ({ job }) => {
 
         <div className="card-actions justify-end mt-3">
             <p>
-            <span className="font-medium text-xl text-black">Posted on:</span> <span className="text-black text-xl">{formattedDate}</span>
+            <span className="font-medium text-xl text-base-content">Posted on:</span> <span className="text-base-content text-xl">{formattedDate}</span>
           </p>
           <Link
             to={`/allJobs/${_id}`}

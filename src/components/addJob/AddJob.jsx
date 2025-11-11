@@ -81,8 +81,8 @@ const AddJob = () => {
   return (
     <div className="max-w-2xl md:mx-auto p-4 md:p-8 bg-base-300 mx-5 mt-10 rounded-xl mb-10 shadow-lg">
       <title>Add Job</title>
-      <h1 className="text-2xl md:text-3xl font-semibold mb-6 border-b pb-2 text-gray-800">
-        Add New Job Posting
+      <h1 className="text-2xl md:text-3xl font-semibold mb-6 border-b pb-2 text-base-content">
+        Add New Job
       </h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -127,7 +127,7 @@ const AddJob = () => {
             </label>
             <input
               type="text"
-              className="input input-bordered w-full bg-gray-100 cursor-not-allowed"
+              className="input input-bordered w-full bg-gray-100 text-black cursor-not-allowed"
               value={user?.displayName || "Anonymous"}
               readOnly
             />
@@ -205,7 +205,7 @@ const AddJob = () => {
           </label>
           <input
             type="email"
-            className="input input-bordered w-full bg-gray-100 cursor-not-allowed"
+            className="input input-bordered w-full bg-gray-100 text-black cursor-not-allowed"
             value={user?.email || ""}
             readOnly
           />

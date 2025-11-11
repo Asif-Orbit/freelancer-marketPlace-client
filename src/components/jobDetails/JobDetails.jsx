@@ -85,6 +85,7 @@ const JobDetails = () => {
             src={coverImage || fallbackImg}
             alt={title}
             className="w-full md:w-80 h-48 object-cover rounded-lg shadow-md"
+            onError={(e) => (e.currentTarget.src = fallbackImg)}
           />
 
           <div className="flex-1">
