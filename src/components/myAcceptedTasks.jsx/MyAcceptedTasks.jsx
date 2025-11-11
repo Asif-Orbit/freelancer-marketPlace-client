@@ -104,11 +104,11 @@ function GridView({ items, onRemove }) {
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {items.map((it) => (
         <div key={it._id} className="card bg-base-200 shadow hover:shadow-lg transition">
-          <figure className=" bg-base-300 overflow-hidden">
+          <figure className=" bg-base-300 overflow-hidden rounded-t-xl p-5">
             <img
               src={it.snapshot?.coverImage || fallbackImg}
               alt={it.snapshot?.title}
-              className="w-full h-full object-cover"
+              className="w-full h-72 object-cover rounded-xl transition-transform duration-300 hover:scale-105"
               onError={(e) => (e.currentTarget.src = fallbackImg)}
               loading="lazy"
             />

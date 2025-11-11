@@ -262,7 +262,7 @@ const UpdateJob = () => {
         </div>
 
         <div className="flex gap-3">
-          <Link to="/myJobs" className="btn">
+          <Link to="/myAddedJobs" className="btn">
             Cancel
           </Link>
           <button
