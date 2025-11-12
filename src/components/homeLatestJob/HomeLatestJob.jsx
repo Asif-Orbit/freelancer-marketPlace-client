@@ -4,7 +4,6 @@ import { Link } from "react-router";
 import { motion } from "framer-motion";
 import JobCard from "../jobCard/JobCard";
 
-const fallbackImg = "https://i.ibb.co/G4Y9djWZ/image.png";
 const  HomeLatestJob=()=> {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);

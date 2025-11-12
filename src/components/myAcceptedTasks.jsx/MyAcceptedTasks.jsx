@@ -2,7 +2,7 @@ import { use, useEffect, useState } from "react";
 import AxiosAPI from "../axiosAPI/AxiosAPI";
 import { Link } from "react-router";
 import { CheckCircle, XCircle } from "lucide-react"; 
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { AuthContext } from "../../contexts/authContexts/AuthContexts";
 
 const fallbackImg = "https://i.ibb.co/G4Y9djWZ/image.png";
@@ -217,6 +217,7 @@ function TableView({ items, onRemove }) {
           ))}
         </tbody>
       </table>
+      <ToastContainer></ToastContainer>
     </div>
   );
 }
